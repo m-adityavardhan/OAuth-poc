@@ -29,15 +29,19 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
 
 2. **Install dependencies:**
 
+```bash
    npm install
+```
 
 3. **Set up your environment variables:**
 
    Create a `.env` file in the project root with the following contents:
 
+```env
    PORT=8080
    JWT_PRIVATE_KEY=LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tDQpNSGNDQVFFRUlFTWRnb25QNEU0cEh0OGYxMUFUeEYyR1cycHArMjhJQ3E5YmYyeEZIb0lrb0FvR0NDcUdTTTQ5DQpBd0VIb1VRRFFnQUVFQVFSUjVxc1lrQi9tdkQ3c0hqdHFwenpycVFOMGJoMFFuWVlQT2hZaWlmS2RjcEZjNDdVDQo3MUV5U1FCcytMRTlpTEMveHE2SDYwQlBQaHVKTlJlNllRPT0NCi0tLS0tRU5EIEVDIFBSSVZBVEUgS0VZLS0tLS0NCg==
    REDIS_URL=redis://localhost:6379
+```
 
    > **Note:**  
    The `JWT_PRIVATE_KEY` above is a base64-encoded PEM string. If you generated your own key, update this variable accordingly. If you have a PEM-formatted key, store it with escaped newlines or base64-encode it.
@@ -47,12 +51,16 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
    ### Using an EC Key (Recommended)
    If you prefer to use an Elliptic Curve (EC) key (which is efficient and secure), generate one in PEM format by running:
    
+```bash
    openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -pkeyopt ec_param_enc:explicit -out ec_private_key.pem
-   
+```
+
    Then, if needed, base64-encode the key:
    
+```bash
    base64 ec_private_key.pem > ec_private_key.pem.base64
-   
+```
+
    Copy the contents of `ec_private_key.pem.base64` into your `.env` file as the value for `JWT_PRIVATE_KEY`.
    
    > **Note:** When using an EC key, update your JWT signing code to use the appropriate algorithm (e.g., `ES256`). For example:
@@ -66,12 +74,16 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
    
    Alternatively, if you prefer to use an RSA key, generate one in PEM format by running:
    
+```bash
    openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
-   
+```
+
    Then, if needed, base64-encode the key:
 
+```bash
    base64 private_key.pem > private_key.pem.base64
-   
+```
+
    Copy the contents of `private_key.pem.base64` into your `.env` file as the value for `JWT_PRIVATE_KEY`.
    
    > **Note:** When using an RSA key, ensure your JWT signing code uses the `RS256` algorithm.
@@ -90,7 +102,9 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
 
 - **Example Request:**
 
+```bash
   GET http://localhost:8080/api/oauth/authorize?response_type=code&client_id=upfirst&redirect_uri=http://localhost:8081/process&state=SOME_STATE
+```
 
 - **Expected Behavior:**  
   If the client and parameters are valid, the server will redirect (HTTP 302) to the provided `redirect_uri` with an appended `code` and `state` parameter.
@@ -107,20 +121,26 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
 
 - **Headers:**
 
+```
   Content-Type: application/x-www-form-urlencoded
+```
 
 - **Example Request Body:**
 
+```
   grant_type=authorization_code&code=SOME_CODE&client_id=upfirst&redirect_uri=http://localhost:8081/process
+```
 
 - **Expected Response:**
 
+```json
   {
     "access_token": "SOME_JWT_ACCESS_TOKEN",
     "token_type": "bearer",
     "expires_in": 3600,
     "refresh_token": "SOME_REFRESH_TOKEN" // if implemented
   }
+```
 
 ## Testing the Endpoints
 
@@ -156,12 +176,16 @@ curl -X POST \
 
 1. **Start Redis** (currently not applicable):
 
+```bash
    redis-server
+```
 
 2. **Run the Server:**
 
+```bash
    npm run build   # if you're using TypeScript and need to compile
    npm start
+```
 
 3. The server should now be running at `http://localhost:8080`.
 
