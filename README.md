@@ -11,13 +11,11 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
   - Exchanges the authorization code for an access token (and refresh token if implemented).
   - Uses JWT for access tokens signed with either RSA (RS256) or EC (ES256) algorithms.
 - Environment variable management with [dotenv](https://www.npmjs.com/package/dotenv).
-- Redis integration for token storage (if needed).
 
 ## Requirements
 
 - Node.js (v14+ recommended)
 - npm or yarn
-- Redis (if you choose to use Redis for storing tokens)
 - OpenSSL (for generating RSA/EC keys)
 
 ## Installation
@@ -40,7 +38,6 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
 ```env
    PORT=8080
    JWT_PRIVATE_KEY=LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tDQpNSGNDQVFFRUlFTWRnb25QNEU0cEh0OGYxMUFUeEYyR1cycHArMjhJQ3E5YmYyeEZIb0lrb0FvR0NDcUdTTTQ5DQpBd0VIb1VRRFFnQUVFQVFSUjVxc1lrQi9tdkQ3c0hqdHFwenpycVFOMGJoMFFuWVlQT2hZaWlmS2RjcEZjNDdVDQo3MUV5U1FCcytMRTlpTEMveHE2SDYwQlBQaHVKTlJlNllRPT0NCi0tLS0tRU5EIEVDIFBSSVZBVEUgS0VZLS0tLS0NCg==
-   REDIS_URL=redis://localhost:6379
 ```
 
    > **Note:**  
@@ -174,20 +171,14 @@ curl -X POST \
 
 ## Running the Project
 
-1. **Start Redis** (currently not applicable):
-
-```bash
-   redis-server
-```
-
-2. **Run the Server:**
+1. **Run the Server:**
 
 ```bash
    npm run build   # if you're using TypeScript and need to compile
    npm start
 ```
 
-3. The server should now be running at `http://localhost:8080`.
+2. The server should now be running at `http://localhost:8080`.
 
 
 ## Contributing
