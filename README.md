@@ -138,7 +138,7 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
     "access_token": "SOME_JWT_ACCESS_TOKEN",
     "token_type": "bearer",
     "expires_in": 3600,
-    "refresh_token": "SOME_REFRESH_TOKEN" // if implemented
+    "refresh_token": "SOME_REFRESH_TOKEN"
   }
 ```
 
@@ -198,7 +198,4 @@ Feel free to fork this repository and submit pull requests. For any major change
 
 Happy coding!
 ```
-
----
-
 Feel free to adjust the content to match your project's specifics and add any additional sections or instructions as needed.
