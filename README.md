@@ -44,28 +44,36 @@ This project is a proof-of-concept implementation of an OAuth 2.0 Authorization 
 
 4. **Generate Keys:**
 
-   Here I used EC Key. To generate an EC private key in PEM format, run:
-   openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -pkeyopt ec_param_enc:explicit -out ec_private_key.pem
+### Using an EC Key (Recommended)
+If you prefer to use an Elliptic Curve (EC) key (which is efficient and secure), generate one in PEM format by running:
 
-   Then, if needed, base64-encode the key:
-   base64 ec_private_key.pem > ec_private_key.pem.base64
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -pkeyopt ec_param_enc:explicit -out ec_private_key.pem
 
-   If you wanna use RSA instead(Optional)
+Then, if needed, base64-encode the key:
 
-   To generate an RSA private key in PEM format, run:
-   openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+base64 ec_private_key.pem > ec_private_key.pem.base64
 
-   Then, if needed, base64-encode the key:
-   base64 private_key.pem > private_key.pem.base64
+Copy the contents of `ec_private_key.pem.base64` into your `.env` file as the value for `JWT_PRIVATE_KEY`.
 
-   Copy the contents of `private_key.pem.base64` into your `.env` as the value for `JWT_PRIVATE_KEY`.
-  
-   > **Note:**  
-   If you use an EC key, update your JWT signing code to use an appropriate algorithm, such as ES256. For example:
-   const token = await new SignJWT(payload)
-        .setProtectedHeader({ alg: 'RSA256' })
-        .setExpirationTime('5m')
-        .sign(privateKey);
+> **Note:** When using an EC key, update your JWT signing code to use the appropriate algorithm (e.g., `ES256`). For example:
+> 
+> const token = await new SignJWT(payload)
+>   .setProtectedHeader({ alg: 'ES256' })
+>   .setExpirationTime('5m')
+>   .sign(privateKey);
+
+### Using an RSA Key (Optional)
+Alternatively, if you prefer to use an RSA key, generate one in PEM format by running:
+
+openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+
+Then, if needed, base64-encode the key:
+
+base64 private_key.pem > private_key.pem.base64
+
+Copy the contents of `private_key.pem.base64` into your `.env` file as the value for `JWT_PRIVATE_KEY`.
+
+> **Note:** When using an RSA key, ensure your JWT signing code uses the `RS256` algorithm.
 
 ## Endpoints
 
