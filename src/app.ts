@@ -4,6 +4,7 @@ import oauthRouter from './controllers/oauth.controller';
 import dotenv from 'dotenv';
 dotenv.config();
 
+console.log('JWT_PRIVATE_KEY:', process.env.JWT_PRIVATE_KEY);
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
