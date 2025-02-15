@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "31873f64-00c7-4a89-b456-fb9910ba630a",
+		"name": "OAuth2.0-poc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42134648"
+	},
+	"item": [
+		{
+			"name": "authorize api",
+			"protocolProfileBehavior": {
+				"followRedirects": false
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/oauth/authorize?response_type=code&client_id=upfirst&redirect_uri=http://localhost:8081/process&state=SOME_STATE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"oauth",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "client_id",
+							"value": "upfirst"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8081/process"
+						},
+						{
+							"key": "state",
+							"value": "SOME_STATE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token api",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "580771ca20caeccd621cee5e88a79778ee278eb8442ee238ce0e9f59c57d0b8c",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "upfirst",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8081/process",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token api(refresh)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "975f12892d5b0f1ad2ca74f39fe35696c3380f17a29d06e3bb8c630f6489a2cc",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "upfirst",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8081/process",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "redirected uri",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/process?code=580771ca20caeccd621cee5e88a79778ee278eb8442ee238ce0e9f59c57d0b8c&state=SOME_STATE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"process"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "580771ca20caeccd621cee5e88a79778ee278eb8442ee238ce0e9f59c57d0b8c"
+						},
+						{
+							"key": "state",
+							"value": "SOME_STATE"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

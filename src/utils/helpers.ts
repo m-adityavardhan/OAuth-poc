@@ -19,9 +19,3 @@ export const generateJWT = async (payload: any) => {
         .setExpirationTime('5m') // sets Auth token expiration to 5mins
         .sign(privateKey);
 };
-
-export const validate = (object:any) => {
-    if(!object){
-
-    }
-}
